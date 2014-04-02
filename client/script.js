@@ -690,7 +690,31 @@ function adjustCard(offsets, doSync) {
 //////////////////////////////////////////////////////////
 
 $(function() {
-	
+	  //jt
+    $('body').delegate('.content' , "click",
+	    function(evt){
+	    	//console.log( evt.currentTarget.innerHTML.split(" ")[0]);
+	    	if (evt.currentTarget.innerHTML.split(" ")[0].match(/^\//)){
+	    		window.parent.postMessage(evt.currentTarget.innerHTML.split(" ")[0], '*');
+
+		    //window.location = "http://jontiemann.com/" + evt.currentTarget.innerHTML.split(" ")[0];
+		    evt.stopPropagation()
+	    	}
+
+	    	if (evt.currentTarget.innerHTML.split(" ")[0].match(/^jon.tiemann@/)){
+		    //window.open("mailto: jon.tiemann@gmail.com", "_blank");
+		    var jim = document.createElement("a");
+		    jim.setAttribute("href","mailto:jon.tiemann@gmail.com");
+		    jim.innerText = "click";
+		    document.body.appendChild(jim);
+		    jim.click().remove();
+
+		    //$('<a href="' + "mailto: jon.tiemann@gmail.com" + '">click</a>').appendTo('body').click().remove();
+		    evt.stopPropagation()
+	    	}
+	    }
+	);
+
 	if (boardInitialized == false)
 		blockUI('<img src="/images/ajax-loader.gif" width=43 height=11/>');
 
@@ -734,8 +758,7 @@ $(function() {
 	
 		return false;
 	});
-		
-		
+
 	
 	$('#icon-col').hover(
 		function() {
